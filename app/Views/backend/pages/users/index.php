@@ -20,29 +20,32 @@
                     <div class="table-responsive">
                         <table class="table table-striped" id="datatable">
                             <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone Number</th>
-                                <th>Action</th>
-                            </tr>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Action</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <?php foreach ($users as $key => $user): ?>
-                                <tr>
-                                    <td><?= $key+1 ?></td>
-                                    <td><?= $user['name'] ?></td>
-                                    <td><?= $user['email'] ?></td>
-                                    <td><?= $user['phone_number'] ?></td>
-                                    <td>
-                                        <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a href="/internal/users/edit/<?= $user['id'] ?>" class="btn btn-warning white">Edit</a>
-                                            <a href="/internal/users/delete/<?= $user['id'] ?>" class="btn btn-danger btn-delete" data-id="<?= $user['id'] ?>">Delete</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
+                                <?php foreach ($users as $key => $user) : ?>
+                                    <tr>
+                                        <td><?= $key + 1 ?></td>
+                                        <td><?= $user['name'] ?></td>
+                                        <td><?= $user['email'] ?></td>
+                                        <td><?= $user['phone_number'] ?></td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Basic example">
+                                                <a href="/internal/users/edit/<?= $user['id'] ?>" class="btn btn-warning white">Edit</a>
+                                                <a href="/internal/users/delete/<?= $user['id'] ?>" class="btn btn-danger btn-delete" data-id="<?= $user['id'] ?>">Delete</a>
+                                                <a href="/internal/users/delete/<?= $user['id'] ?>" class="btn btn-info btn-delete" data-id="<?= $user['id'] ?>">Import <i class="fa fa-file-excel"></i></a>
+                                                <a href="<?= base_url('assets/logo/Tugas 2.xlsx') ?>" target="blank_" class="btn btn-info" data-id="<?= $user['id'] ?>">Export <i class="fa fa-file-pdf"></i></a>
+                                                <a href="<?= base_url('assets/logo/Tugas Besar 2.pdf') ?>" target="blank_" class="btn btn-info" data-id="<?= $user['id'] ?>">Export <i class="fa fa-file-pdf"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>
@@ -55,30 +58,30 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('js') ?>
-    <script type="text/javascript">
-        $(function() {
-            $('.btn-delete').click(function(e) {
-                e.preventDefault();
-                const href = $(this).attr('href');
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.location.href = href;
-                    }
-                })
-            });
+<script type="text/javascript">
+    $(function() {
+        $('.btn-delete').click(function(e) {
+            e.preventDefault();
+            const href = $(this).attr('href');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = href;
+                }
+            })
         });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#datatable').DataTable();
-        });
-    </script>
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#datatable').DataTable();
+    });
+</script>
 <?= $this->endSection() ?>
